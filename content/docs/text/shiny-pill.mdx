@@ -1,0 +1,91 @@
+---
+title: Shining Pill Text
+description: A shimmering effect that moves across the text, giving it a glowing appearance.
+---
+
+import { PreviewContainer } from "@/components/PreviewContainer";
+import { ShinyPill } from "@/components/library/text/ShinyPill";
+import { cn } from "@/lib/utils";
+
+## Preview
+
+<PreviewContainer>
+  <div
+        className={cn(
+          "group rounded-full border border-black/5 bg-neutral-100 text-base text-white transition-all ease-in hover:cursor-pointer hover:bg-neutral-200 dark:border-white/5 dark:bg-neutral-900 dark:hover:bg-neutral-800",
+        )}
+      >
+        <ShinyPill>
+          <span>✨ Introducing edithspace UI</span>
+        </ShinyPill>
+      </div>
+</PreviewContainer>
+
+## Code
+
+```tsx title="ShinyPill.tsx"
+"use client"
+import { ComponentPropsWithoutRef, FC } from "react";
+import { motion } from "motion/react";
+
+import { cn } from "@/lib/utils";
+
+export interface ShinyPillProps
+  extends ComponentPropsWithoutRef<"span"> {
+  shimmerWidth?: number;
+}
+
+export const ShinyPill: FC<ShinyPillProps> = ({
+  children,
+  className,
+}) => {
+  return (
+    <div className={cn(
+      "mx-auto max-w-md",
+
+      "inline-flex items-center justify-center px-4 py-1 transition ease-out hover:text-neutral-600 hover:duration-300 hover:dark:text-neutral-50",
+
+      // Shine gradient
+      "bg-gradient-to-r from-transparent via-black/10 via-50% to-transparent  dark:via-white/10",
+      className,
+    )}>
+
+    <motion.span
+      className="bg-[linear-gradient(110deg,#404040,35%,#fff,50%,#404040,75%,#404040)] bg-[length:200%_100%] bg-clip-text text-base font-medium text-transparent"
+      initial={{ backgroundPosition: "200% 0" }}
+      animate={{ backgroundPosition: "-200% 0" }}
+      transition={{
+        repeat: Infinity,
+        duration: 2,
+        ease: "linear",
+      }}
+      >
+      {children}
+      </motion.span>
+      </div>
+  );
+};
+
+```
+
+## Usage
+```tsx title="ShinyPillDemo.tsx"
+"use client"
+
+import { cn } from "@/lib/utils";
+
+export const ShinyPill() {
+  return (
+     <div
+        className={cn(
+          "group rounded-full border border-black/5 bg-neutral-100 text-base text-white transition-all ease-in hover:cursor-pointer hover:bg-neutral-200 dark:border-white/5 dark:bg-neutral-900 dark:hover:bg-neutral-800",
+        )}
+      >
+        <ShinyPill>
+          <span>✨ Introducing edithspace UI</span>
+        </ShinyPill>
+    </div>
+  );
+};
+
+```
